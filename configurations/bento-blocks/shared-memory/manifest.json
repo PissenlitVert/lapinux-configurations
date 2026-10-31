@@ -1,0 +1,52 @@
+{
+  "id": "bento-blocks-shared-memory",
+  "title": "Bento Blocks — dedicated GPU mistaken for integrated graphics",
+  "description": "The engine compares reported shared memory with dedicated VRAM and falls back to \"integrated or very old GPU\" as soon as shared memory reaches VRAM, which happens on machines with roughly 24 GB of RAM or more. It then caps bandwidth at 128 MB/s.",
+  "solution": "DXVK reports 1 GB of shared memory instead: the engine sees a dedicated GPU and its bandwidth budget goes from 128 to 512 MB/s. The driver, Proton and the game files are untouched.",
+  "type": "graphics",
+  "platform": "windows",
+  "layers": [
+    "dxvk"
+  ],
+  "author": {
+    "name": "Pissenlit Vert",
+    "github": "PissenlitVert"
+  },
+  "version": "1.0.0",
+  "license": "CC0-1.0",
+  "status": "verified",
+  "tested": {
+    "proton": "GE-Proton11-11",
+    "gpu": "NVIDIA GeForce RTX 4070",
+    "ram": "32 GB",
+    "date": "2026-10-31"
+  },
+  "game": {
+    "names": [
+      "Bento Blocks"
+    ],
+    "aliases": [
+      "BentoBlocks"
+    ],
+    "steam_appids": [
+      3311670
+    ],
+    "store_ids": []
+  },
+  "requires": [],
+  "conflicts": [],
+  "retired": false,
+  "actions": {
+    "settings": {
+      "env": [],
+      "dxvk": {
+        "shared_mb": 1024
+      },
+      "args": []
+    },
+    "files": []
+  },
+  "links": [
+    "https://github.com/PissenlitVert/lapinux-configurations/blob/main/configurations/bento-blocks/shared-memory/README.md"
+  ]
+}
