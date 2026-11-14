@@ -384,6 +384,7 @@ def collect_plugins(problems: Problems) -> list[dict]:
             if not isinstance(native, dict):
                 problems.add(relative, "native must be an object")
                 continue
+            entry["theme"] = bool(native.get("theme") is True)
             library = native.get("library")
             reason = relative_path(library)
             if reason:

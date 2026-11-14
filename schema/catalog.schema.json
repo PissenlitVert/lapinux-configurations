@@ -92,6 +92,7 @@
           "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
           "license": { "type": "string", "minLength": 1 },
           "status": { "type": "string", "enum": ["proposed", "verified", "experimental", "broken"] },
+          "theme": { "type": "boolean", "description": "The plugin provides an interface theme and is listed with themes rather than plugins." },
           "file": { "type": "string", "pattern": "^plugins/[a-z0-9_-]+\\.toml$" },
           "sha256": { "type": "string", "pattern": "^[0-9a-fA-F]{64}$" },
           "size": { "type": "integer", "minimum": 1, "maximum": 262144 },
