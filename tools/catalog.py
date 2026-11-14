@@ -25,6 +25,21 @@ THEMES = ROOT / "themes"
 THEME_STATUSES = {"proposed", "verified", "experimental", "broken"}
 PLUGINS = ROOT / "plugins"
 PLUGIN_STATUSES = {"proposed", "verified", "experimental", "broken"}
+PALETTES = ROOT / "palettes"
+#: Les neuf couleurs de base que Lapinux sait remplacer ; toute autre clé est
+#: une faute de frappe qui laisserait un trou dans l'interface.
+COLOR_FIELDS = [
+    "background",
+    "panel",
+    "card",
+    "card_hover",
+    "card_active",
+    "border",
+    "accent",
+    "text",
+    "text_dim",
+]
+HEX_COLOR = re.compile(r"^#[0-9a-fA-F]{6}$")
 
 CATALOG_VERSION = 2
 MAINTAINER = {"name": "Pissenlit Vert", "github": "PissenlitVert"}
@@ -380,6 +395,42 @@ def collect_native(problems: Problems) -> list[dict]:
     return plugins
 
 
+def collect_palettes(problems: Problems) -> list[dict]:
+    """Validate one JSON file per palette and return them for the catalog.
+
+    A palette is data only: no binary, no checksum, no download. The app reads
+    the colours straight from catalog.json, so an added palette shows up
+    without an app update.
+    """
+    palettes: list[dict] = []
+    if not PALETTES.is_dir():
+        return palettes
+    for path in sorted(PALETTES.glob("*.json")):
+        where = str(path.relative_to(ROOT))
+        entry = load(path, problems)
+        if not entry:
+            continue
+        ident = entry.get("id")
+        if not isinstance(ident, str) or not SLUG.match(ident):
+            problems.add(where, "id must be lowercase letters, digits and dashes")
+        elif ident != path.stem:
+            problems.add(where, f"id '{ident}' does not match the file name")
+        if not str(entry.get("title", "")).strip():
+            problems.add(where, "missing title")
+        colors = entry.get("colors")
+        if not isinstance(colors, dict):
+            problems.add(where, "missing colors")
+            continue
+        for field in COLOR_FIELDS:
+            if not HEX_COLOR.match(str(colors.get(field, ""))):
+                problems.add(where, f"colors.{field} must be #rrggbb")
+        for extra in sorted(set(colors) - set(COLOR_FIELDS)):
+            problems.add(where, f"unknown colour field '{extra}'")
+        palettes.append(entry)
+    palettes.sort(key=lambda entry: entry.get("id", ""))
+    return palettes
+
+
 def build(problems: Problems) -> dict:
     entries = collect(ENTRIES, True, problems)
     ids = [entry.get("id") for entry in entries]
@@ -392,6 +443,7 @@ def build(problems: Problems) -> dict:
         "configurations": entries,
         "themes": collect_themes(problems),
         "plugins": collect_native(problems),
+        "palettes": collect_palettes(problems),
     }
 
 
@@ -412,12 +464,14 @@ def main(argv: list[str]) -> int:
         CATALOG.write_text(text, encoding="utf-8")
         print(
             f"catalog.json: {len(catalog['configurations'])} configuration(s), "
-            f"{len(catalog['themes'])} theme(s), {len(catalog['plugins'])} plugin(s)"
+            f"{len(catalog['themes'])} theme(s), {len(catalog['plugins'])} plugin(s), "
+            f"{len(catalog['palettes'])} palette(s)"
         )
     else:
         print(
             f"catalog.json: {len(catalog['configurations'])} configuration(s), "
-            f"{len(catalog['themes'])} theme(s), {len(catalog['plugins'])} plugin(s), up to date"
+            f"{len(catalog['themes'])} theme(s), {len(catalog['plugins'])} plugin(s), "
+            f"{len(catalog['palettes'])} palette(s), up to date"
         )
     return 0
 

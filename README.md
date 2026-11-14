@@ -19,6 +19,7 @@ configurations/<game>/<variant>/
   files/…                        optional files copied into the game
 plugins/<library>.so              native plugin libraries
 themes/<library>.so               native theme libraries (draw their own layout)
+palettes/<id>.json                colour palettes (data only)
 schema/catalog.schema.json       catalog validation
 schema/configuration.schema.json manifest validation
 tools/catalog.py                 validator and catalog builder
@@ -72,6 +73,39 @@ writes a local manifest itself.
 `python3 tools/theme_probe.py` is the smoke test: it loads every published
 library, reads its descriptor and refuses an ABI, an architecture or a missing
 callback that Lapinux could not use. CI runs it after the catalog check.
+
+## Publish a colour palette
+
+A palette only changes the nine base colours of the active theme; the theme
+still decides the layout, rounding and text scale. It is pure data: one
+`palettes/<id>.json`, no binary and no checksum, so Lapinux lists and applies
+it without an app update.
+
+```json
+{
+  "id": "kokiri",
+  "title": "Kokiri",
+  "description": "Bark, undergrowth and leaves.",
+  "author": { "name": "Pissenlit Vert", "github": "PissenlitVert" },
+  "version": "1.0.0",
+  "license": "CC0-1.0",
+  "status": "experimental",
+  "colors": {
+    "background": "#241a12", "panel": "#2f2318", "card": "#3b2c1f",
+    "card_hover": "#483626", "card_active": "#55402c", "border": "#6b5238",
+    "accent": "#7fbf5f", "text": "#f3e8d6", "text_dim": "#c3b096"
+  }
+}
+```
+
+The file name is the `id`. All nine colours are required and must be
+`#rrggbb`; `python3 tools/catalog.py` refuses anything else. In Lapinux the
+palettes appear **above** the themes in Settings → Appearance, with
+**Download** and **Use**; the ones you download stay available offline.
+
+To propose your own, pick the colours in Lapinux, press **Export** in the
+palette card, and open a pull request with the file it wrote under
+`palettes/`.
 
 ## Themes
 

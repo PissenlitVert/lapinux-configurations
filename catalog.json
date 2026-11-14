@@ -139,5 +139,53 @@
         "size": 342424
       }
     }
+  ],
+  "palettes": [
+    {
+      "id": "kokiri",
+      "title": "Kokiri",
+      "description": "Écorce, sous-bois et feuilles : bruns chauds et vert clair, lisibles en plein jour.",
+      "author": {
+        "name": "Pissenlit Vert",
+        "github": "PissenlitVert"
+      },
+      "version": "1.0.0",
+      "license": "CC0-1.0",
+      "status": "experimental",
+      "colors": {
+        "background": "#241a12",
+        "panel": "#2f2318",
+        "card": "#3b2c1f",
+        "card_hover": "#483626",
+        "card_active": "#55402c",
+        "border": "#6b5238",
+        "accent": "#7fbf5f",
+        "text": "#f3e8d6",
+        "text_dim": "#c3b096"
+      }
+    },
+    {
+      "id": "vice",
+      "title": "Vice",
+      "description": "Teal de Miami, rose néon et lumière de coucher de soleil : sombre mais coloré.",
+      "author": {
+        "name": "Pissenlit Vert",
+        "github": "PissenlitVert"
+      },
+      "version": "1.0.0",
+      "license": "CC0-1.0",
+      "status": "experimental",
+      "colors": {
+        "background": "#0d1a22",
+        "panel": "#122630",
+        "card": "#19323d",
+        "card_hover": "#21414d",
+        "card_active": "#2a505e",
+        "border": "#3d6b76",
+        "accent": "#ff5e8a",
+        "text": "#fff2e4",
+        "text_dim": "#a8c6c9"
+      }
+    }
   ]
 }

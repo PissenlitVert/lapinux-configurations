@@ -1,8 +1,12 @@
 # Native plugins and themes
 
-This repository publishes one model only: **native plugins**. A theme is a
-native plugin with `"theme": true` in its catalog entry. There is no
+This repository publishes one model only for code: **native plugins**. A
+theme is a native plugin with `"theme": true` in its catalog entry. There is no
 declarative theme file, and no second theme list to keep in sync.
+
+Colour palettes are the exception, because they are data: one
+`palettes/<id>.json` with nine `#rrggbb` colours, listed above the themes in
+Settings → Appearance. They never ship code.
 
 A plugin is a shared library that Lapinux loads with `dlopen`. It gets the
 same rights as the user running Lapinux. It is reviewed like code, not like
