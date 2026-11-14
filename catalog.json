@@ -82,18 +82,18 @@
     {
       "id": "kokiri",
       "title": "Kokiri",
-      "description": "Thème Kokiri : forêt luxuriante, canopée sombre, éclats de lumière et lucioles dorées. Palette verte et ambrée, fond animé par un plugin natif.",
+      "description": "Thème Kokiri diurne : forêt pastel, canopée douce, éclats de lumière et lucioles dorées. Palette sauge, crème et marron, accent ambré pour les sélections.",
       "author": {
         "name": "Pissenlit Vert",
         "github": "PissenlitVert"
       },
-      "version": "1.0.0",
+      "version": "1.0.1",
       "license": "CC0-1.0",
       "status": "experimental",
       "theme": true,
       "binary": {
         "file": "themes/liblapinux_plugin_theme_kokiri.so",
-        "sha256": "b57ff92491c823a039e628fefa1c4a66e41a6b80f0f43485581ba4da1f578e71",
+        "sha256": "b5b14327189e532592ec6ba08d0591afdc2117bb8b1bdff8e1f2dc18dc35194c",
         "size": 18576
       }
     },
