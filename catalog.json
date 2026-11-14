@@ -80,6 +80,24 @@
       }
     },
     {
+      "id": "kokiri",
+      "title": "Kokiri",
+      "description": "Thème Kokiri : forêt luxuriante, canopée sombre, éclats de lumière et lucioles dorées. Palette verte et ambrée, fond animé par un plugin natif.",
+      "author": {
+        "name": "Pissenlit Vert",
+        "github": "PissenlitVert"
+      },
+      "version": "1.0.0",
+      "license": "CC0-1.0",
+      "status": "experimental",
+      "theme": true,
+      "binary": {
+        "file": "themes/liblapinux_plugin_theme_kokiri.so",
+        "sha256": "b57ff92491c823a039e628fefa1c4a66e41a6b80f0f43485581ba4da1f578e71",
+        "size": 18576
+      }
+    },
+    {
       "id": "nx",
       "title": "NX",
       "description": "Bibliothèque horizontale, carrousel de jeux et dock natifs, rendus par un plugin .so.",
