@@ -69,13 +69,12 @@ and only then writes them to `~/.config/lapinux/plugins/`. A plugin that
 provides an interface theme sets `native.theme = true` and is listed with the
 themes in the app.
 
-## Declarative themes
+## Themes
 
-A small palette-only theme is a `.theme` file (TOML syntax) under `themes/`:
-`id`, `name`, `description`, `author`, `version`, `license`, `status` and the
-palette fields. No image, no script, no game action. The file name must be
-`<id>.theme`. A theme that draws its own layout belongs in a native plugin
-instead.
+A theme is a native plugin: a manifest plus its `.so`, with
+`native.theme = true`. It draws its own layout and palette, so it can change as
+much of the interface as the plugin API exposes. This repository publishes no
+declarative theme files.
 
 ## Versions and retirement
 
