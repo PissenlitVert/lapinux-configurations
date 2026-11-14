@@ -10,8 +10,11 @@ A configuration can:
 - add or correct a translation;
 - replace a data file, a texture set or a mod package.
 
-It cannot run a script. Every entry is **declarative**: Lapinux applies game
-settings and copies files, and can undo both.
+Configurations and themes cannot run a script: every entry is **declarative**,
+and Lapinux applies game settings and copies files reversibly. Native plugins
+are the deliberate exception: their `.so` is published under `plugins/bin/`,
+downloaded only when the player chooses to install it, and checked by Lapinux
+against the catalog SHA-256 and the host ABI before activation.
 
 Maintained by **Pissenlit Vert** ([@PissenlitVert](https://github.com/PissenlitVert)).
 
@@ -42,7 +45,8 @@ Maintained by **Pissenlit Vert** ([@PissenlitVert](https://github.com/PissenlitV
 
 1. At startup, and at most every six hours, Lapinux downloads
    [`catalog.json`](catalog.json) from `main`. The file lists every published
-   configuration, theme and plugin manifest; it is a few kilobytes.
+   configuration, theme and plugin manifest; it is a few kilobytes. A native
+   plugin also lists the path, SHA-256 and size of its binary.
 2. If GitHub is unreachable, the copy shipped inside the Lapinux binary is
    used. A known fix therefore stays available offline.
 3. When a game sheet is opened, the entries whose `game` block matches that
@@ -53,6 +57,9 @@ Maintained by **Pissenlit Vert** ([@PissenlitVert](https://github.com/PissenlitV
      its SHA-256;
    - back up every file it is about to replace;
    - apply the settings patch and write the files atomically;
+5. **Install** on a catalog plugin downloads its manifest and, for a native
+   plugin, its `.so`; both are checked against their SHA-256, the binary ABI is
+   checked before the atomic write, and the plugin is activated.
    - record what was done, so **Remove** restores the previous state.
 5. Nothing is downloaded or written until the player clicks **Install**.
 
@@ -94,7 +101,9 @@ Store identifiers are the most reliable for non-Steam games.
 ├── examples/
 │   └── translation/                 # template, never published
 ├── plugins/
-│   └── <id>.toml                    # native plugin manifests
+│   ├── <id>.toml                    # native plugin manifests
+│   └── bin/
+│       └── lib<name>.so             # matching native libraries
 ├── themes/
 │   └── <id>.toml                    # declarative theme manifests
 ├── schema/
@@ -288,8 +297,8 @@ packages:
   overrides, and use `conflicts` to say so;
 - keep the mod's license and author in `license` and `author` — do not
   relicense someone else's work;
-- a mod that needs a script, an injector or a DLL loader cannot be expressed
-  here. Lapinux does not run code from a catalog.
+- a mod that needs a script, an injector or a DLL loader cannot be expressed as
+  a configuration. Native plugins are a separate, opt-in mechanism.
 
 ---
 
@@ -313,18 +322,19 @@ then run `python3 tools/catalog.py` so the digest and size follow the file.
 
 ## Plugins
 
-Native plugins are published under `plugins/<id>.toml`. Each catalog entry
-points to its TOML manifest, its SHA-256 and its size. A plugin manifest
-declares the native library it expects beside it, plus its page and translated
-texts.
+Native plugins are published under `plugins/<id>.toml`, with the native library
+they expect in `plugins/bin/`. Each catalog entry points to the manifest, its
+SHA-256 and its size, plus the binary path, SHA-256 and size. A plugin manifest
+declares the native library name, its page and translated texts.
 
-The `.so` binaries are **not** stored in this repository: the catalog remains
-declarative data and contains no executable file. Plugin authors distribute
-the matching binary separately; the manifest and its catalog entry make the
-plugin discoverable without turning the catalog into a code download.
+A native plugin contains executable code. Lapinux downloads it only when the
+player clicks **Install**, verifies its SHA-256 and loads it just long enough to
+check its ABI before writing it to `~/.config/lapinux/plugins/`. A missing
+binary is reported explicitly instead of leaving an unusable manifest.
 
-To add or change a plugin, edit `plugins/<id>.toml`, include `version`,
-`license` and `status`, then run `python3 tools/catalog.py`.
+To add or change a plugin, edit `plugins/<id>.toml`, put its library in
+`plugins/bin/`, include `version`, `license` and `status`, then run
+`python3 tools/catalog.py` so both digests follow the files.
 
 ---
 
@@ -380,9 +390,10 @@ you change the catalog format itself.
 
 ## Safety rules
 
-- No executable, script, DLL, `.exe`, `.so`, `.bat`, `.sh` or installer in
-  `files/`. The validator does not scan file types; reviewers do. A
-  configuration is data, never code.
+- No executable, script, DLL, `.exe`, `.so`, `.bat`, `.sh` or installer in a
+  configuration's `files/` or a theme. The only executable content is a native
+  plugin library under `plugins/bin/`, published with its manifest, SHA-256 and
+  size, and ABI-checked by Lapinux before installation.
 - No game assets you do not own or have no permission to redistribute. A
   texture pack you made from scratch is fine; extracted game files are not.
 - No credential, token or personal data in a manifest, a README or a file.
@@ -437,7 +448,8 @@ release.
 - [ ] File digests recomputed, `catalog.json` regenerated.
 - [ ] README explains the fix and how to undo it.
 - [ ] Installed, played, removed, game restored.
-- [ ] No executable, no redistributed game asset, no secret.
+- [ ] No executable outside `plugins/bin/`; no redistributed game asset, no
+  secret.
 
 ---
 
@@ -450,8 +462,10 @@ reachable. Restart Lapinux after changing the local catalog URL: the catalog is
 read at startup and cached for six hours.
 
 **Can a configuration run a command?**
-No. Settings and file copies only. This is deliberate: a catalog that runs
-code is a supply-chain attack waiting to happen.
+No. Settings and file copies only. A native plugin may run code, but only when
+the player installs it explicitly: its binary is published under `plugins/bin/`,
+digest-checked and ABI-checked before activation, never executed while reading
+the catalog.
 
 **Why is my SHA-256 rejected?**
 The published bytes differ from the file you hashed. Recompute with
