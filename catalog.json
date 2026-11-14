@@ -59,5 +59,66 @@
       "size": 0,
       "base": "configurations/bento-blocks/shared-memory"
     }
+  ],
+  "themes": [
+    {
+      "id": "nx",
+      "title": "NX",
+      "description": "Accueil horizontal, carrousel de jeux et dock inspirés de la Nintendo Switch. Thème expérimental, encore incomplet.",
+      "author": {
+        "name": "Pissenlit Vert",
+        "github": "PissenlitVert"
+      },
+      "version": "0.1.0",
+      "license": "CC0-1.0",
+      "status": "experimental",
+      "file": "themes/nx.toml",
+      "sha256": "a3270d2ea5611785a5d6de6a810f36ab5a65100e143a9583173ec661c8e7b2f0",
+      "size": 893
+    }
+  ],
+  "plugins": [
+    {
+      "id": "chat-de-bibliotheque",
+      "title": "Miaou",
+      "description": "Ajoute une section Miaou dans la barre du haut : le plugin natif fait tomber une pluie de miaou.",
+      "author": {
+        "name": "La sieste"
+      },
+      "version": "4.0.0",
+      "license": "CC0-1.0",
+      "status": "experimental",
+      "file": "plugins/chat-de-bibliotheque.toml",
+      "sha256": "c7518442e684248810c05baacb03d94695d7b8531bacd1e29c531846d1a52a36",
+      "size": 728
+    },
+    {
+      "id": "nx",
+      "title": "NX",
+      "description": "Accueil horizontal, carrousel de jeux et dock natifs, rendus par un plugin .so.",
+      "author": {
+        "name": "Pissenlit Vert"
+      },
+      "version": "1.0.0",
+      "license": "CC0-1.0",
+      "status": "experimental",
+      "file": "plugins/nx.toml",
+      "sha256": "c14c42b10171c38015187dd8325775377e141ff0b4afd2a0b911201420bd8047",
+      "size": 681
+    },
+    {
+      "id": "theme-aurora",
+      "title": "Aurora",
+      "description": "Thème natif avec ses propres halos de fond.",
+      "author": {
+        "name": "Lapinux"
+      },
+      "version": "1.0.0",
+      "license": "CC0-1.0",
+      "status": "experimental",
+      "file": "plugins/theme-aurora.toml",
+      "sha256": "2c0cf6b6610ad9bc06a4f766d980e677b3d8acd26d24acf4577abc47bc09b8d3",
+      "size": 611
+    }
   ]
 }

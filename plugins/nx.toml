@@ -1,0 +1,21 @@
+# Thème natif NX : la palette et la frame de fond viennent du .so ;
+# les libellés viennent de ce manifeste, avec leurs traductions.
+id = "nx"
+name = "NX"
+description = "Accueil horizontal, carrousel de jeux et dock natifs, rendus par un plugin .so."
+version = "1.0.0"
+author = "Pissenlit Vert"
+license = "CC0-1.0"
+status = "experimental"
+home_label = "Lapinux"
+home_subtitle = "Choisissez un jeu et appuyez sur Entrée."
+
+[native]
+library = "liblapinux_plugin_theme_nx.so"
+theme = true
+
+[translations.en]
+name = "NX"
+description = "Horizontal home, game carousel and native dock rendered by a .so plugin."
+home_label = "Lapinux"
+home_subtitle = "Choose a game and press Enter."

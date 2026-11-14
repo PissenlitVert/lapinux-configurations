@@ -26,13 +26,15 @@ Maintained by **Pissenlit Vert** ([@PissenlitVert](https://github.com/PissenlitV
 5. [Actions in detail](#actions-in-detail)
 6. [Translations](#translations)
 7. [Mods and data files](#mods-and-data-files)
-8. [Testing your configuration](#testing-your-configuration)
-9. [Versions, updates and retirement](#versions-updates-and-retirement)
-10. [Safety rules](#safety-rules)
-11. [Building the catalog and CI](#building-the-catalog-and-ci)
-12. [Pull request checklist](#pull-request-checklist)
-13. [FAQ](#faq)
-14. [License](#license)
+8. [Themes](#themes)
+9. [Plugins](#plugins)
+10. [Testing your configuration](#testing-your-configuration)
+11. [Versions, updates and retirement](#versions-updates-and-retirement)
+12. [Safety rules](#safety-rules)
+13. [Building the catalog and CI](#building-the-catalog-and-ci)
+14. [Pull request checklist](#pull-request-checklist)
+15. [FAQ](#faq)
+16. [License](#license)
 
 ---
 
@@ -40,7 +42,7 @@ Maintained by **Pissenlit Vert** ([@PissenlitVert](https://github.com/PissenlitV
 
 1. At startup, and at most every six hours, Lapinux downloads
    [`catalog.json`](catalog.json) from `main`. The file lists every published
-   configuration; it is a few kilobytes.
+   configuration, theme and plugin manifest; it is a few kilobytes.
 2. If GitHub is unreachable, the copy shipped inside the Lapinux binary is
    used. A known fix therefore stays available offline.
 3. When a game sheet is opened, the entries whose `game` block matches that
@@ -91,6 +93,10 @@ Store identifiers are the most reliable for non-Steam games.
 │           └── files/…              # optional files copied into the game
 ├── examples/
 │   └── translation/                 # template, never published
+├── plugins/
+│   └── <id>.toml                    # native plugin manifests
+├── themes/
+│   └── <id>.toml                    # declarative theme manifests
 ├── schema/
 │   ├── configuration.schema.json
 │   └── catalog.schema.json
@@ -287,6 +293,41 @@ packages:
 
 ---
 
+## Themes
+
+A theme is a declarative TOML manifest: a palette, a layout (`classic` or
+`nx`), a rounding, a font scale and two home texts. It carries no image, no
+script and no game action. Lapinux validates it before writing it to
+`~/.config/lapinux/themes/`; the player then picks it in Settings → Appearance.
+
+Themes are published in `catalog.json` under `themes`, each with the path of
+its manifest (`themes/<id>.toml`), its SHA-256 and its size. The NX theme is
+published this way: it is experimental and only exists once installed from the
+catalog.
+
+To add or change a theme, edit `themes/<id>.toml` (with `id`, `name`,
+`description`, `author`, `version`, `license`, `status` and the theme fields),
+then run `python3 tools/catalog.py` so the digest and size follow the file.
+
+---
+
+## Plugins
+
+Native plugins are published under `plugins/<id>.toml`. Each catalog entry
+points to its TOML manifest, its SHA-256 and its size. A plugin manifest
+declares the native library it expects beside it, plus its page and translated
+texts.
+
+The `.so` binaries are **not** stored in this repository: the catalog remains
+declarative data and contains no executable file. Plugin authors distribute
+the matching binary separately; the manifest and its catalog entry make the
+plugin discoverable without turning the catalog into a code download.
+
+To add or change a plugin, edit `plugins/<id>.toml`, include `version`,
+`license` and `status`, then run `python3 tools/catalog.py`.
+
+---
+
 ## Testing your configuration
 
 A catalog served locally is enough; nothing needs to be published first.
@@ -358,7 +399,8 @@ you change the catalog format itself.
 ## Building the catalog and CI
 
 `catalog.json` is **generated**. It contains every entry under
-`configurations/`, sorted by base path, with two added fields:
+`configurations/`, sorted by base path, plus the themes and plugin manifests,
+with two added fields for configurations:
 
 - `base`: the entry folder, used to resolve `source` URLs;
 - `size`: the total size of the entry's files.
@@ -368,10 +410,10 @@ python3 tools/catalog.py          # validate and rewrite catalog.json
 python3 tools/catalog.py --check  # validate and fail if catalog.json is stale
 ```
 
-The script uses only the Python standard library. It checks JSON syntax,
-required fields, enums, identifiers, versions, paths, file existence, SHA-256
-digests, sizes, duplicate ids and `requires`/`conflicts` self-references. It
-also validates `examples/`, without publishing them.
+The script uses only the Python standard library. It checks JSON and TOML
+syntax, required fields, enums, identifiers, versions, paths, file existence,
+SHA-256 digests, sizes, duplicate ids and `requires`/`conflicts`
+self-references. It also validates `examples/`, without publishing them.
 
 CI runs the same check on every push and pull request
 ([`.github/workflows/validate.yml`](.github/workflows/validate.yml)). A pull
