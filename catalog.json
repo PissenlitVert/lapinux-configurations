@@ -72,12 +72,9 @@
       "version": "4.0.0",
       "license": "CC0-1.0",
       "status": "experimental",
-      "file": "plugins/chat-de-bibliotheque.toml",
-      "sha256": "c7518442e684248810c05baacb03d94695d7b8531bacd1e29c531846d1a52a36",
-      "size": 728,
       "theme": false,
       "binary": {
-        "file": "plugins/bin/liblapinux_plugin_chat.so",
+        "file": "plugins/liblapinux_plugin_chat.so",
         "sha256": "19ba2b0a2ef3be7264acbb191a2287a9ec4cd2a4c23946058e959f4da0225a2e",
         "size": 425096
       }
@@ -92,12 +89,9 @@
       "version": "1.1.0",
       "license": "CC0-1.0",
       "status": "experimental",
-      "file": "plugins/nx.toml",
-      "sha256": "cb6d0bd877e56310917c8b73ba2c7c581730a5dd2e2dc185db81f8a4d6670e70",
-      "size": 691,
       "theme": true,
       "binary": {
-        "file": "plugins/bin/liblapinux_plugin_theme_nx.so",
+        "file": "themes/liblapinux_plugin_theme_nx.so",
         "sha256": "55dbc9a3d1d1e7d277334eaff7f4e70a5b77360d9ec19773a2b037335d2a14b1",
         "size": 506872
       }
@@ -112,12 +106,9 @@
       "version": "1.0.0",
       "license": "CC0-1.0",
       "status": "experimental",
-      "file": "plugins/theme-aurora.toml",
-      "sha256": "2c0cf6b6610ad9bc06a4f766d980e677b3d8acd26d24acf4577abc47bc09b8d3",
-      "size": 611,
       "theme": true,
       "binary": {
-        "file": "plugins/bin/liblapinux_plugin_theme_aurora.so",
+        "file": "themes/liblapinux_plugin_theme_aurora.so",
         "sha256": "c796320daec9e83688b36f0d10e5e1cc2142c0e2278d8e21a201802870c37cd3",
         "size": 342424
       }

@@ -332,89 +332,51 @@ def collect_themes(problems: Problems) -> list[dict]:
     return themes
 
 
-def collect_plugins(problems: Problems) -> list[dict]:
+def collect_native(problems: Problems) -> list[dict]:
+    """Publie les bibliothèques natives : un .so par plugin ou thème.
+
+    Le catalogue garde les métadonnées (titre, description, version...) : il
+    n'y a plus de manifeste TOML publié, le .so est la seule source de code.
+    """
     plugins: list[dict] = []
-    if not PLUGINS.is_dir():
-        return plugins
-    for path in sorted(PLUGINS.glob("*.toml")):
-        raw = path.read_bytes()
-        relative = f"plugins/{path.name}"
+    known: dict[str, dict] = {}
+    if CATALOG.is_file():
         try:
-            data = tomllib.loads(raw.decode("utf-8"))
-        except (UnicodeDecodeError, tomllib.TOMLDecodeError) as error:
-            problems.add(relative, f"invalid TOML: {error}")
+            current = json.loads(CATALOG.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            current = {}
+        for entry in current.get("plugins", []):
+            name = entry.get("binary", {}).get("file", "").rsplit("/", 1)[-1]
+            if name:
+                known[name] = entry
+    for directory, is_theme in ((PLUGINS, False), (THEMES, True)):
+        if not directory.is_dir():
             continue
-        ident = data.get("id")
-        name = data.get("name")
-        description = data.get("description")
-        author = data.get("author")
-        version = data.get("version") or "0.1.0"
-        license_name = data.get("license") or "CC0-1.0"
-        status = data.get("status") or "experimental"
-        if not isinstance(ident, str) or not re.fullmatch(r"[a-z0-9]+(?:[-_][a-z0-9]+)*", ident):
-            problems.add(relative, "invalid or missing id")
-            continue
-        if path.name != f"{ident}.toml":
-            problems.add(relative, f"file name must be {ident}.toml")
-            continue
-        if not isinstance(name, str) or not name.strip() or not isinstance(description, str) or not description.strip():
-            problems.add(relative, "missing name or description")
-            continue
-        if status not in PLUGIN_STATUSES:
-            problems.add(relative, f"unknown status '{status}'")
-            continue
-        if not isinstance(version, str) or not VERSION.match(version):
-            problems.add(relative, "version must look like 1.2.3")
-            continue
-        if len(raw) > 256 * 1024:
-            problems.add(relative, "plugin manifest is too large")
-            continue
-        entry = {
-            "id": ident,
-            "title": name,
-            "description": description,
-            "author": {
-                "name": author if isinstance(author, str) and author.strip() else MAINTAINER["name"],
-            },
-            "version": version,
-            "license": license_name,
-            "status": status,
-            "file": relative,
-            "sha256": hashlib.sha256(raw).hexdigest(),
-            "size": len(raw),
-        }
-        native = data.get("native")
-        if native is not None:
-            if not isinstance(native, dict):
-                problems.add(relative, "native must be an object")
+        for path in sorted(directory.glob("*.so")):
+            relative = f"{directory.name}/{path.name}"
+            entry = known.get(path.name)
+            if entry is None:
+                problems.add(
+                    relative,
+                    "no catalog metadata for this library: keep its entry in catalog.json",
+                )
                 continue
-            entry["theme"] = bool(native.get("theme") is True)
-            library = native.get("library")
-            reason = relative_path(library)
-            if reason:
-                problems.add(relative, f"native.library: {reason}")
-                continue
-            if not library.endswith(".so"):
-                problems.add(relative, "native.library must be a .so file")
-                continue
-            binary_relative = f"plugins/bin/{library}"
-            binary_path = ROOT / binary_relative
-            if not binary_path.is_file():
-                problems.add(relative, f"binary not found: {binary_relative}")
-                continue
-            binary = binary_path.read_bytes()
-            if not binary:
+            raw = path.read_bytes()
+            if not raw:
                 problems.add(relative, "plugin binary is empty")
                 continue
-            if len(binary) > 64 * 1024 * 1024:
+            if len(raw) > 64 * 1024 * 1024:
                 problems.add(relative, "plugin binary is larger than 64 MiB")
                 continue
-            entry["binary"] = {
-                "file": binary_relative,
-                "sha256": hashlib.sha256(binary).hexdigest(),
-                "size": len(binary),
+            published = {key: value for key, value in entry.items() if key not in ("file", "sha256", "size", "binary")}
+            published["theme"] = is_theme
+            published["binary"] = {
+                "file": relative,
+                "sha256": hashlib.sha256(raw).hexdigest(),
+                "size": len(raw),
             }
-        plugins.append(entry)
+            plugins.append(published)
+    plugins.sort(key=lambda entry: entry["id"])
     return plugins
 
 
@@ -429,7 +391,7 @@ def build(problems: Problems) -> dict:
         "maintainer": MAINTAINER,
         "configurations": entries,
         "themes": collect_themes(problems),
-        "plugins": collect_plugins(problems),
+        "plugins": collect_native(problems),
     }
 
 

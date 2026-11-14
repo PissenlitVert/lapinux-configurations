@@ -17,8 +17,8 @@ configurations/<game>/<variant>/
   manifest.json                  the configuration itself
   README.md                      what it fixes, how it was tested
   files/…                        optional files copied into the game
-plugins/<id>.toml                native plugin manifest
-plugins/bin/<library>.so         the matching library, published at release
+plugins/<library>.so              native plugin libraries
+themes/<library>.so               native theme libraries (draw their own layout)
 schema/catalog.schema.json       catalog validation
 schema/configuration.schema.json manifest validation
 tools/catalog.py                 validator and catalog builder
@@ -53,21 +53,19 @@ by hand. A manifest that fails validation is reported and left out.
 Every file entry needs `source`, `target` and `sha256`; a mismatch aborts the
 installation instead of writing unknown bytes.
 
-## Publish a native plugin
+## Publish a native plugin or theme
 
-A plugin is a manifest plus its library:
+A plugin or theme is a single `.so`, dropped in `plugins/` or `themes/`. Its
+metadata lives in `catalog.json`: `id`, `title`, `description`, `author`,
+`version`, `license`, `status`, and the `binary` entry the builder keeps up to
+date with the library's SHA-256 and size. A library in `themes/` is published
+with `theme: true` and appears with the interface themes in Lapinux.
 
-```
-plugins/<id>.toml      id, name, description, author, version, license,
-                       status, native = { library = "plugins/bin/….so" }
-plugins/bin/….so       the compiled library
-```
-
-`python3 tools/catalog.py` records the manifest and the library with their
-digests and sizes. The app downloads both, verifies them, checks the plugin ABI
-and only then writes them to `~/.config/lapinux/plugins/`. A plugin that
-provides an interface theme sets `native.theme = true` and is listed with the
-themes in the app.
+To add one, copy the `.so` into the right folder and add its metadata entry to
+`catalog.json`, then run `python3 tools/catalog.py`: the builder finds every
+library, matches it to its entry, refreshes digest and size, and refuses a
+library without metadata. Lapinux downloads the `.so`, verifies it, checks the
+plugin ABI, and writes a local manifest itself.
 
 ## Themes
 
