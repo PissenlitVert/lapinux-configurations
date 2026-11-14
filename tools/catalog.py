@@ -21,7 +21,6 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 CATALOG = ROOT / "catalog.json"
 ENTRIES = ROOT / "configurations"
-EXAMPLES = ROOT / "examples"
 THEMES = ROOT / "themes"
 THEME_STATUSES = {"proposed", "verified", "experimental", "broken"}
 PLUGINS = ROOT / "plugins"
@@ -285,7 +284,12 @@ def collect_themes(problems: Problems) -> list[dict]:
     themes: list[dict] = []
     if not THEMES.is_dir():
         return themes
-    for path in sorted(THEMES.glob("*.toml")):
+    for legacy in sorted([*THEMES.glob("*.toml"), *THEMES.glob("*.nxtheme")]):
+        problems.add(
+            f"themes/{legacy.name}",
+            "theme manifests must use the .theme extension",
+        )
+    for path in sorted(THEMES.glob("*.theme")):
         raw = path.read_bytes()
         text = raw.decode("utf-8")
         ident = theme_field(text, "id")
@@ -299,8 +303,8 @@ def collect_themes(problems: Problems) -> list[dict]:
         if not re.fullmatch(r"[a-z0-9]+(?:[-_][a-z0-9]+)*", ident):
             problems.add(relative, "invalid or missing id")
             continue
-        if path.name != f"{ident}.toml":
-            problems.add(relative, f"file name must be {ident}.toml")
+        if path.name != f"{ident}.theme":
+            problems.add(relative, f"file name must be {ident}.theme")
             continue
         if not name or not description:
             problems.add(relative, "missing name or description")
@@ -416,7 +420,6 @@ def collect_plugins(problems: Problems) -> list[dict]:
 
 def build(problems: Problems) -> dict:
     entries = collect(ENTRIES, True, problems)
-    collect(EXAMPLES, False, problems)
     ids = [entry.get("id") for entry in entries]
     for ident in sorted({ident for ident in ids if ids.count(ident) > 1}):
         problems.add(str(ENTRIES.relative_to(ROOT)), f"duplicate id '{ident}'")

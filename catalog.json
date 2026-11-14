@@ -60,23 +60,7 @@
       "base": "configurations/bento-blocks/shared-memory"
     }
   ],
-  "themes": [
-    {
-      "id": "nx",
-      "title": "NX",
-      "description": "Bibliothèque horizontale, carrousel de jeux et dock inspirés de la Nintendo Switch. Thème expérimental, encore incomplet.",
-      "author": {
-        "name": "Pissenlit Vert",
-        "github": "PissenlitVert"
-      },
-      "version": "0.2.0",
-      "license": "CC0-1.0",
-      "status": "experimental",
-      "file": "themes/nx.toml",
-      "sha256": "f6cbd58247a459b60c3f0bf964110fe7ef17dc333b4cbebadaa7889870f01307",
-      "size": 908
-    }
-  ],
+  "themes": [],
   "plugins": [
     {
       "id": "chat-de-bibliotheque",
