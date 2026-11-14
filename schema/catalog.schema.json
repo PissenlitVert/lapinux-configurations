@@ -237,6 +237,26 @@
               }
             },
             "description": "The published native library; installed beside a manifest generated locally by Lapinux."
+          },
+          "abi": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 64,
+            "description": "ABI native du binaire (lapinux-plugin-api HOST_ABI_VERSION). Lapinux refuse une autre version."
+          },
+          "arch": {
+            "type": "string",
+            "enum": [
+              "x86_64",
+              "aarch64",
+              "any"
+            ],
+            "description": "Architecture du binaire. Lapinux refuse celle d'une autre machine."
+          },
+          "min_lapinux_version": {
+            "type": "string",
+            "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+            "description": "Version minimale de Lapinux, quand le plugin en exige une."
           }
         }
       }

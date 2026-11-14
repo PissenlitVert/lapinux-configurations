@@ -38,6 +38,7 @@ tools/catalog.py                 validator and catalog builder
 ```bash
 python3 tools/catalog.py          # validate, rewrite catalog.json
 python3 tools/catalog.py --check  # CI: fails if catalog.json is stale
+python3 tools/theme_probe.py      # CI: ELF, ABI and callbacks of each .so
 ```
 
 Every `sha256` and `size` is computed from the files on disk: never edit them
@@ -62,17 +63,25 @@ date with the library's SHA-256 and size. A library in `themes/` is published
 with `theme: true` and appears with the interface themes in Lapinux.
 
 To add one, copy the `.so` into the right folder and add its metadata entry to
-`catalog.json`, then run `python3 tools/catalog.py`: the builder finds every
-library, matches it to its entry, refreshes digest and size, and refuses a
-library without metadata. Lapinux downloads the `.so`, verifies it, checks the
-plugin ABI, and writes a local manifest itself.
+`catalog.json` — including `abi` and `arch` — then run
+`python3 tools/catalog.py`: the builder finds every library, matches it to its
+entry, refreshes digest and size, and refuses a library without metadata.
+Lapinux downloads the `.so`, verifies it, checks the ABI and architecture, and
+writes a local manifest itself.
+
+`python3 tools/theme_probe.py` is the smoke test: it loads every published
+library, reads its descriptor and refuses an ABI, an architecture or a missing
+callback that Lapinux could not use. CI runs it after the catalog check.
 
 ## Themes
 
-A theme is a native plugin: a manifest plus its `.so`, with
-`native.theme = true`. It draws its own layout and palette, so it can change as
-much of the interface as the plugin API exposes. This repository publishes no
-declarative theme files.
+A theme is a native plugin with `"theme": true`. It draws its own palette and
+background, so it can change as much of the interface as the plugin API
+exposes. This repository publishes no declarative theme files.
+
+The full contract — descriptor layout, host API, JSON commands, units, string
+ownership, compatibility metadata and the review checklist — is in
+[THEMES.md](THEMES.md).
 
 ## Versions and retirement
 

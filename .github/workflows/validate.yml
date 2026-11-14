@@ -19,3 +19,5 @@ jobs:
           python-version: "3.12"
       - name: Validate manifests and catalog.json
         run: python3 tools/catalog.py --check
+      - name: Probe native libraries (ELF, ABI, callbacks)
+        run: python3 tools/theme_probe.py
