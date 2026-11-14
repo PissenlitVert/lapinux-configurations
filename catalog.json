@@ -64,17 +64,17 @@
     {
       "id": "nx",
       "title": "NX",
-      "description": "Accueil horizontal, carrousel de jeux et dock inspirés de la Nintendo Switch. Thème expérimental, encore incomplet.",
+      "description": "Bibliothèque horizontale, carrousel de jeux et dock inspirés de la Nintendo Switch. Thème expérimental, encore incomplet.",
       "author": {
         "name": "Pissenlit Vert",
         "github": "PissenlitVert"
       },
-      "version": "0.1.0",
+      "version": "0.2.0",
       "license": "CC0-1.0",
       "status": "experimental",
       "file": "themes/nx.toml",
-      "sha256": "a3270d2ea5611785a5d6de6a810f36ab5a65100e143a9583173ec661c8e7b2f0",
-      "size": 893
+      "sha256": "f6cbd58247a459b60c3f0bf964110fe7ef17dc333b4cbebadaa7889870f01307",
+      "size": 908
     }
   ],
   "plugins": [
@@ -101,21 +101,21 @@
     {
       "id": "nx",
       "title": "NX",
-      "description": "Accueil horizontal, carrousel de jeux et dock natifs, rendus par un plugin .so.",
+      "description": "Bibliothèque horizontale, carrousel de jeux et dock natifs, rendus par un plugin .so.",
       "author": {
         "name": "Pissenlit Vert"
       },
-      "version": "1.0.0",
+      "version": "1.1.0",
       "license": "CC0-1.0",
       "status": "experimental",
       "file": "plugins/nx.toml",
-      "sha256": "c14c42b10171c38015187dd8325775377e141ff0b4afd2a0b911201420bd8047",
-      "size": 681,
+      "sha256": "cb6d0bd877e56310917c8b73ba2c7c581730a5dd2e2dc185db81f8a4d6670e70",
+      "size": 691,
       "theme": true,
       "binary": {
         "file": "plugins/bin/liblapinux_plugin_theme_nx.so",
-        "sha256": "e5e850032c8cb461da9d8806d398000d739887790e793935af0b2458681defdb",
-        "size": 507136
+        "sha256": "55dbc9a3d1d1e7d277334eaff7f4e70a5b77360d9ec19773a2b037335d2a14b1",
+        "size": 506872
       }
     },
     {
