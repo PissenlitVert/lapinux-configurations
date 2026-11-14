@@ -90,7 +90,12 @@
       "status": "experimental",
       "file": "plugins/chat-de-bibliotheque.toml",
       "sha256": "c7518442e684248810c05baacb03d94695d7b8531bacd1e29c531846d1a52a36",
-      "size": 728
+      "size": 728,
+      "binary": {
+        "file": "plugins/bin/liblapinux_plugin_chat.so",
+        "sha256": "19ba2b0a2ef3be7264acbb191a2287a9ec4cd2a4c23946058e959f4da0225a2e",
+        "size": 425096
+      }
     },
     {
       "id": "nx",
@@ -104,7 +109,12 @@
       "status": "experimental",
       "file": "plugins/nx.toml",
       "sha256": "c14c42b10171c38015187dd8325775377e141ff0b4afd2a0b911201420bd8047",
-      "size": 681
+      "size": 681,
+      "binary": {
+        "file": "plugins/bin/liblapinux_plugin_theme_nx.so",
+        "sha256": "e5e850032c8cb461da9d8806d398000d739887790e793935af0b2458681defdb",
+        "size": 507136
+      }
     },
     {
       "id": "theme-aurora",
@@ -118,7 +128,12 @@
       "status": "experimental",
       "file": "plugins/theme-aurora.toml",
       "sha256": "2c0cf6b6610ad9bc06a4f766d980e677b3d8acd26d24acf4577abc47bc09b8d3",
-      "size": 611
+      "size": 611,
+      "binary": {
+        "file": "plugins/bin/liblapinux_plugin_theme_aurora.so",
+        "sha256": "c796320daec9e83688b36f0d10e5e1cc2142c0e2278d8e21a201802870c37cd3",
+        "size": 342424
+      }
     }
   ]
 }

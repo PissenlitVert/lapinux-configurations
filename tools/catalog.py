@@ -365,22 +365,51 @@ def collect_plugins(problems: Problems) -> list[dict]:
         if len(raw) > 256 * 1024:
             problems.add(relative, "plugin manifest is too large")
             continue
-        plugins.append(
-            {
-                "id": ident,
-                "title": name,
-                "description": description,
-                "author": {
-                    "name": author if isinstance(author, str) and author.strip() else MAINTAINER["name"],
-                },
-                "version": version,
-                "license": license_name,
-                "status": status,
-                "file": relative,
-                "sha256": hashlib.sha256(raw).hexdigest(),
-                "size": len(raw),
+        entry = {
+            "id": ident,
+            "title": name,
+            "description": description,
+            "author": {
+                "name": author if isinstance(author, str) and author.strip() else MAINTAINER["name"],
+            },
+            "version": version,
+            "license": license_name,
+            "status": status,
+            "file": relative,
+            "sha256": hashlib.sha256(raw).hexdigest(),
+            "size": len(raw),
+        }
+        native = data.get("native")
+        if native is not None:
+            if not isinstance(native, dict):
+                problems.add(relative, "native must be an object")
+                continue
+            library = native.get("library")
+            reason = relative_path(library)
+            if reason:
+                problems.add(relative, f"native.library: {reason}")
+                continue
+            if not library.endswith(".so"):
+                problems.add(relative, "native.library must be a .so file")
+                continue
+            binary_relative = f"plugins/bin/{library}"
+            binary_path = ROOT / binary_relative
+            if not binary_path.is_file():
+                problems.add(relative, f"binary not found: {binary_relative}")
+                continue
+            binary = binary_path.read_bytes()
+            if not binary:
+                problems.add(relative, "plugin binary is empty")
+                continue
+            if len(binary) > 64 * 1024 * 1024:
+                problems.add(relative, "plugin binary is larger than 64 MiB")
+                continue
+            entry["binary"] = {
+                "file": binary_relative,
+                "sha256": hashlib.sha256(binary).hexdigest(),
+                "size": len(binary),
             }
-        )
+        plugins.append(entry)
     return plugins
 
 

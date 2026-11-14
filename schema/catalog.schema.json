@@ -71,7 +71,7 @@
     },
     "plugins": {
       "type": "array",
-      "description": "Native plugin manifests. Each entry points to a TOML manifest and its SHA-256; the matching .so is distributed separately.",
+      "description": "Native plugin manifests. Each entry points to a TOML manifest and its SHA-256; a native plugin also publishes its .so below plugins/bin/.",
       "items": {
         "type": "object",
         "additionalProperties": false,
@@ -94,7 +94,18 @@
           "status": { "type": "string", "enum": ["proposed", "verified", "experimental", "broken"] },
           "file": { "type": "string", "pattern": "^plugins/[a-z0-9_-]+\\.toml$" },
           "sha256": { "type": "string", "pattern": "^[0-9a-fA-F]{64}$" },
-          "size": { "type": "integer", "minimum": 1, "maximum": 262144 }
+          "size": { "type": "integer", "minimum": 1, "maximum": 262144 },
+          "binary": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["file", "sha256", "size"],
+            "properties": {
+              "file": { "type": "string", "pattern": "^plugins/bin/[A-Za-z0-9._/-]+\\.so$" },
+              "sha256": { "type": "string", "pattern": "^[0-9a-fA-F]{64}$" },
+              "size": { "type": "integer", "minimum": 1, "maximum": 67108864 }
+            },
+            "description": "Native library installed beside the manifest; absent for a declarative-only plugin."
+          }
         }
       }
     }
