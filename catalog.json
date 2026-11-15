@@ -190,94 +190,25 @@
     {
       "id": "vice",
       "title": "Vice",
-      "description": "Nuit bleu marine de Vice City, accent rose néon : sombre, lisible, sans violet.",
+      "description": "Le coucher de soleil de l'illustration : ciel rose, cartes pêche, ombres prune et magenta.",
       "author": {
         "name": "Pissenlit Vert",
         "github": "PissenlitVert"
       },
-      "version": "1.3.0",
+      "version": "2.0.0",
       "license": "CC0-1.0",
       "status": "experimental",
       "colors": {
-        "background": "#0a1626",
-        "panel": "#11203a",
-        "card": "#18294a",
-        "card_hover": "#1f3158",
-        "card_active": "#273b68",
-        "border": "#3a517f",
-        "accent": "#ff4f8b",
-        "text": "#f6f0f4",
-        "text_dim": "#aab4cc"
+        "background": "#df7ba3",
+        "panel": "#e892b0",
+        "card": "#f3c9b4",
+        "card_hover": "#f7d6c2",
+        "card_active": "#fbe2d0",
+        "border": "#a34b74",
+        "accent": "#c2186f",
+        "text": "#3f2039",
+        "text_dim": "#6d3f58"
       }
-    },
-    {
-      "id": "vice-night",
-      "title": "Vice · Nuit bleue",
-      "description": "Bleu nuit uni, un seul accent bleu clair : sobre, sans rose ni violet.",
-      "version": "1.0.0",
-      "colors": {
-        "background": "#0c1524",
-        "panel": "#111d2e",
-        "card": "#17263b",
-        "card_hover": "#1d2f48",
-        "card_active": "#243a57",
-        "border": "#334b6a",
-        "accent": "#4c8dff",
-        "text": "#eef3fa",
-        "text_dim": "#9fb0c7"
-      },
-      "author": {
-        "name": "Pissenlit Vert",
-        "github": "PissenlitVert"
-      },
-      "license": "CC0-1.0",
-      "status": "experimental"
-    },
-    {
-      "id": "vice-pastel",
-      "title": "Vice · Pastel doux",
-      "description": "Pervenche et lavande désaturés, accent violet doux : pastel mais assez posé pour durer.",
-      "version": "1.0.0",
-      "colors": {
-        "background": "#cfd8ee",
-        "panel": "#d8e0f3",
-        "card": "#e2e8f7",
-        "card_hover": "#e9eefb",
-        "card_active": "#f0f4ff",
-        "border": "#b6c3e0",
-        "accent": "#8b7fd4",
-        "text": "#2f3350",
-        "text_dim": "#6c7296"
-      },
-      "author": {
-        "name": "Pissenlit Vert",
-        "github": "PissenlitVert"
-      },
-      "license": "CC0-1.0",
-      "status": "experimental"
-    },
-    {
-      "id": "vice-sunset",
-      "title": "Vice · Coucher de soleil",
-      "description": "Teal de nuit et orange de coucher de soleil : le contraste chaud/froid de Miami, un seul accent chaud.",
-      "version": "1.0.0",
-      "colors": {
-        "background": "#0b1a26",
-        "panel": "#102433",
-        "card": "#16303f",
-        "card_hover": "#1d3c4c",
-        "card_active": "#24485a",
-        "border": "#2f6376",
-        "accent": "#ff8a3d",
-        "text": "#fdf1e6",
-        "text_dim": "#a9c3cc"
-      },
-      "author": {
-        "name": "Pissenlit Vert",
-        "github": "PissenlitVert"
-      },
-      "license": "CC0-1.0",
-      "status": "experimental"
     }
   ]
 }

@@ -1,23 +1,23 @@
 {
   "id": "vice",
   "title": "Vice",
-  "description": "Nuit bleu marine de Vice City, accent rose néon : sombre, lisible, sans violet.",
+  "description": "Le coucher de soleil de l'illustration : ciel rose, cartes pêche, ombres prune et magenta.",
   "author": {
     "name": "Pissenlit Vert",
     "github": "PissenlitVert"
   },
-  "version": "1.3.0",
+  "version": "2.0.0",
   "license": "CC0-1.0",
   "status": "experimental",
   "colors": {
-    "background": "#0a1626",
-    "panel": "#11203a",
-    "card": "#18294a",
-    "card_hover": "#1f3158",
-    "card_active": "#273b68",
-    "border": "#3a517f",
-    "accent": "#ff4f8b",
-    "text": "#f6f0f4",
-    "text_dim": "#aab4cc"
+    "background": "#df7ba3",
+    "panel": "#e892b0",
+    "card": "#f3c9b4",
+    "card_hover": "#f7d6c2",
+    "card_active": "#fbe2d0",
+    "border": "#a34b74",
+    "accent": "#c2186f",
+    "text": "#3f2039",
+    "text_dim": "#6d3f58"
   }
 }
