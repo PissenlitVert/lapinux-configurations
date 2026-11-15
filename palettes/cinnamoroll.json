@@ -1,23 +1,23 @@
 {
   "id": "cinnamoroll",
   "title": "Cinnamoroll",
-  "description": "Bleu ciel pastel posé, rose poudré et lavande : doux pour les yeux, lisible en plein jour.",
+  "description": "Bleu ciel profond, rose poudré et lavande : pastel posé, plus sombre que blanc.",
   "author": {
     "name": "Pissenlit Vert",
     "github": "PissenlitVert"
   },
-  "version": "1.1.0",
+  "version": "1.2.0",
   "license": "CC0-1.0",
   "status": "experimental",
   "colors": {
-    "background": "#9fcfe6",
-    "panel": "#b3dbee",
-    "card": "#c1e7f5",
-    "card_hover": "#cbeaf7",
-    "card_active": "#d9f0fa",
-    "border": "#7fb8d8",
-    "accent": "#2f8fd0",
-    "text": "#12303f",
-    "text_dim": "#3f6478"
+    "background": "#2f6d92",
+    "panel": "#39799f",
+    "card": "#4386ac",
+    "card_hover": "#4d92b8",
+    "card_active": "#579ec4",
+    "border": "#6fb3d4",
+    "accent": "#ffd0e1",
+    "text": "#f2fafe",
+    "text_dim": "#b7dcee"
   }
 }

@@ -1,23 +1,23 @@
 {
   "id": "kokiri",
   "title": "Kokiri",
-  "description": "Sous-bois dense : verts de feuille sur écorce sombre, accent vert clair.",
+  "description": "Écorce brune et feuilles : surfaces de bois, accent vert de sous-bois.",
   "author": {
     "name": "Pissenlit Vert",
     "github": "PissenlitVert"
   },
-  "version": "1.1.0",
+  "version": "1.2.0",
   "license": "CC0-1.0",
   "status": "experimental",
   "colors": {
-    "background": "#14251a",
-    "panel": "#1b3323",
-    "card": "#24452e",
-    "card_hover": "#2c5437",
-    "card_active": "#356441",
-    "border": "#4a7a4f",
+    "background": "#2b2016",
+    "panel": "#35281b",
+    "card": "#40311f",
+    "card_hover": "#4c3b27",
+    "card_active": "#584730",
+    "border": "#6b5238",
     "accent": "#7fd06a",
-    "text": "#eef7e6",
-    "text_dim": "#b3c9a8"
+    "text": "#f2e7d2",
+    "text_dim": "#c2ae90"
   }
 }
