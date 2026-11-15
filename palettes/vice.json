@@ -1,20 +1,23 @@
 {
   "id": "vice",
   "title": "Vice",
-  "description": "Teal de Miami, rose néon et lumière de coucher de soleil : sombre mais coloré.",
-  "author": { "name": "Pissenlit Vert", "github": "PissenlitVert" },
-  "version": "1.0.0",
+  "description": "Bleu néon et bleu profond de Vice City, roses et lavande en accent.",
+  "author": {
+    "name": "Pissenlit Vert",
+    "github": "PissenlitVert"
+  },
+  "version": "1.1.0",
   "license": "CC0-1.0",
   "status": "experimental",
   "colors": {
-    "background": "#0d1a22",
-    "panel": "#122630",
-    "card": "#19323d",
-    "card_hover": "#21414d",
-    "card_active": "#2a505e",
-    "border": "#3d6b76",
-    "accent": "#ff5e8a",
-    "text": "#fff2e4",
-    "text_dim": "#a8c6c9"
+    "background": "#04101d",
+    "panel": "#06203a",
+    "card": "#0a2f52",
+    "card_hover": "#0d3a63",
+    "card_active": "#104574",
+    "border": "#0266c8",
+    "accent": "#00a8ff",
+    "text": "#f4afc2",
+    "text_dim": "#b28bc0"
   }
 }

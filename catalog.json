@@ -142,9 +142,9 @@
   ],
   "palettes": [
     {
-      "id": "kokiri",
-      "title": "Kokiri",
-      "description": "Écorce, sous-bois et feuilles : bruns chauds et vert clair, lisibles en plein jour.",
+      "id": "cinnamoroll",
+      "title": "Cinnamoroll",
+      "description": "Bleu et blanc très pastel, rose poudré et lavande : lumineux et doux.",
       "author": {
         "name": "Pissenlit Vert",
         "github": "PissenlitVert"
@@ -153,38 +153,61 @@
       "license": "CC0-1.0",
       "status": "experimental",
       "colors": {
-        "background": "#241a12",
-        "panel": "#2f2318",
-        "card": "#3b2c1f",
-        "card_hover": "#483626",
-        "card_active": "#55402c",
-        "border": "#6b5238",
-        "accent": "#7fbf5f",
-        "text": "#f3e8d6",
-        "text_dim": "#c3b096"
+        "background": "#f4fafd",
+        "panel": "#e9f5fb",
+        "card": "#dceff9",
+        "card_hover": "#d0e9f7",
+        "card_active": "#c1e7f5",
+        "border": "#a9d5ec",
+        "accent": "#4cb5e8",
+        "text": "#29414f",
+        "text_dim": "#6f8fa3"
+      }
+    },
+    {
+      "id": "kokiri",
+      "title": "Kokiri",
+      "description": "Sous-bois dense : verts de feuille sur écorce sombre, accent vert clair.",
+      "author": {
+        "name": "Pissenlit Vert",
+        "github": "PissenlitVert"
+      },
+      "version": "1.1.0",
+      "license": "CC0-1.0",
+      "status": "experimental",
+      "colors": {
+        "background": "#14251a",
+        "panel": "#1b3323",
+        "card": "#24452e",
+        "card_hover": "#2c5437",
+        "card_active": "#356441",
+        "border": "#4a7a4f",
+        "accent": "#7fd06a",
+        "text": "#eef7e6",
+        "text_dim": "#b3c9a8"
       }
     },
     {
       "id": "vice",
       "title": "Vice",
-      "description": "Teal de Miami, rose néon et lumière de coucher de soleil : sombre mais coloré.",
+      "description": "Bleu néon et bleu profond de Vice City, roses et lavande en accent.",
       "author": {
         "name": "Pissenlit Vert",
         "github": "PissenlitVert"
       },
-      "version": "1.0.0",
+      "version": "1.1.0",
       "license": "CC0-1.0",
       "status": "experimental",
       "colors": {
-        "background": "#0d1a22",
-        "panel": "#122630",
-        "card": "#19323d",
-        "card_hover": "#21414d",
-        "card_active": "#2a505e",
-        "border": "#3d6b76",
-        "accent": "#ff5e8a",
-        "text": "#fff2e4",
-        "text_dim": "#a8c6c9"
+        "background": "#04101d",
+        "panel": "#06203a",
+        "card": "#0a2f52",
+        "card_hover": "#0d3a63",
+        "card_active": "#104574",
+        "border": "#0266c8",
+        "accent": "#00a8ff",
+        "text": "#f4afc2",
+        "text_dim": "#b28bc0"
       }
     }
   ]
